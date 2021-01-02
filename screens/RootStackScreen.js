@@ -10,6 +10,7 @@ import SplashScreen from './SplashScreen';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import KittehsScreen from './KittehsScreen';
+import getAnimalDetailsStack from "../navigators/AnimalDetailsStackScreen";
 
 const KittehsStack = createStackNavigator();
 
@@ -81,13 +82,11 @@ const KittehsStackScreen = ({ navigation }) => (
     }
   }}>
     <KittehsStack.Screen name="Kittehs" component={KittehsScreen} options={{
-      headerLeft: () => (
-        <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
-      ),
       headerRight: () => (
         <Image source={require("../assets/images/kitteh_selfie/kitteh_selfie.png")} style={{width: 70, height: 40}}/>
       )
     }} />
+    {getAnimalDetailsStack(KittehsStack)}
   </KittehsStack.Navigator>
 );
 export default RootStackScreen;

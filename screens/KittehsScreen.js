@@ -4,6 +4,7 @@ import { useQuery }  from "@apollo/client";
 import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
 import { GET_ANIMALS } from "../graphql/query/animal";
 import { filterStatuses, ORDERSTATUSES } from "../helper/status";
+import { startCase } from "lodash";
 
 import Loader from "../components/Loader";
 import Kittehs from "../components/Kittehs";

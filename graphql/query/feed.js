@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import gql from 'graphql-tag';
 
 export const GET_ACTIVITY_FEEDS = gql`
   query getActivityFeeds($scope: String, $sortBy: String, $sortDir: String, $page: Int, $pageSize: Int) {

@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet, Image, Text, View } from "react-native";
+import { StyleSheet, Image, Text, View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Summary = ({
   data
 }) => {
   const { owner, trackable, recipient, key, parameters, trackableType, recipientType } = data;
   const { photos = [], animalSlug = "", animalName = "",  } = parameters || {};
+  const navigation = useNavigation();
 
   const getType = () => {
     const keyArr = key.split('.');
@@ -30,28 +32,18 @@ const Summary = ({
     return action;
   };
 
-
-  const getRecipientUrl = () => {
-    switch(recipientType) {
+  const navigateToScreen = (slug, avatarUrl, name, type) => {
+    switch(type) {
       case "Animal":
-        return `/kittehs/${recipient.slug}/info`;
-      case 'Story':
-        return `/kittehs/${animalSlug}/timeline`;
+        navigation.navigate("Kittehs", {screen: "KittehDetails", params: { slug, avatarUrl, name, tab: "info" }});
+        return;
+      case "Story":
+        navigation.navigate("Kittehs", {screen: "KittehDetails", params: { slug, avatarUrl, name, tab: "timeline" }});
+        return;
       default:
-        return "/";
+        navigation.navigate("Kittehs");
     }
   }
-
-  const getTrackableUrl = () => {
-    switch(trackableType) {
-      case "Animal":
-        return `/kittehs/${trackable.slug}/info`;
-      case 'Story':
-        return `/kittehs/${recipient.slug}/timeline`;
-      default:
-        return "/";
-    }
-  };
 
   const getTrackableType = () => {
     if (key === "photo.added") {
@@ -71,17 +63,21 @@ const Summary = ({
         <Text style={styles.space}>
           { getType() } { getTrackableType() }
         </Text>
-        <Text href={getTrackableUrl()} style={styles.space}>
-          { trackable?.name || "-" }
-        </Text>
+        <TouchableOpacity onPress={() => navigateToScreen(trackable?.slug, trackable?.avatarUrl, trackable?.name, trackableType)}>
+          <Text style={styles.space}>
+            { trackable?.name || "-" }
+          </Text>
+        </TouchableOpacity>
         {recipient && (
           <>
             <Text style={styles.space}>
               for {recipientType.toLowerCase()}
             </Text>
-            <Text href={getRecipientUrl()} style={styles.space}>
-              { recipient?.name }
-            </Text>
+            <TouchableOpacity onPress={() => navigateToScreen(recipient?.slug, recipient?.avatarUrl, trackable?.name, recipientType)}>
+              <Text style={styles.space}>
+                { recipient?.name }
+              </Text>
+            </TouchableOpacity>
           </>
         )}
         <Text style={styles.space}>

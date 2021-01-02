@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, Dimensions, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, FlatList, Dimensions, Text, View } from "react-native";
 import { useQuery } from "@apollo/client";
 
 import { GET_ACTIVITY_FEEDS } from "../../graphql/query/feed";
@@ -10,8 +10,8 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Feed = () => {
-  const [loadMore, setLoadMore] = useState(true);
-  const [page, setPage] = useState(1);
+  const [loadMore, setLoadMore] = React.useState(false);
+  const [page, setPage] = React.useState(1);
   const { loading, error, data, fetchMore, refetch } = useQuery(GET_ACTIVITY_FEEDS, {
     variables: {
       scope: 'current_user',
@@ -22,7 +22,7 @@ const Feed = () => {
     }
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     refetch();
   }, []);
 
@@ -57,22 +57,23 @@ const Feed = () => {
       activity={item}
       onClickPhoto={onClickPhoto} />
   );
+  if (loading) {
+    return <Loader/>;
+  }
+
   return (
     <View style={styles.container}>
-      { loading ? (
-        <Loader/>
-      ) : <FlatList
+      <FlatList
         data={data && data.activityFeeds ? data.activityFeeds : []}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         style={styles.list}
-        onEndReached={loadMore && loadMoreData}
+        onEndReached={loadMoreData}
         onEndReachedThreshold={0.3}
         ListFooterComponent={renderFooter}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         initialNumToRender={10}
       />
-      }
     </View>
   );
 }

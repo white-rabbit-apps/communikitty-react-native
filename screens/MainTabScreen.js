@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image, View, Text } from "react-native";
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,6 +10,8 @@ import FeedScreen from './FeedScreen';
 import MyKittehsScreen from './MyKittehsScreen';
 import ProfileScreen from './ProfileScreen';
 import KittehsScreen from './KittehsScreen';
+
+import getAnimalDetailsStack from "../navigators/AnimalDetailsStackScreen";
 
 const FeedStack = createStackNavigator();
 const MyKittehsStack = createStackNavigator();
@@ -108,6 +111,7 @@ const MyKittehsStackScreen = ({ navigation }) => (
         <Icon.Button name="ios-add" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
       )
     }} />
+    {getAnimalDetailsStack(MyKittehsStack)}
   </MyKittehsStack.Navigator>
 );
 
@@ -126,5 +130,6 @@ const KittehsStackScreen = ({ navigation }) => (
         <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
       )
     }} />
+    {getAnimalDetailsStack(KittehsStack)}
   </KittehsStack.Navigator>
 );
