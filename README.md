@@ -18,8 +18,5 @@ Here you can find complete tutorial series and each video link.
 
 
 # Project Demo
-![React Navigation v5 Mix App iPhone Demo](https://raw.githubusercontent.com/sukanta-m/communikitty-m/master/app-interaction-demo-iphone.gif)
-### iPhone Demo
-
-![React Navigation v5 Mix App Android Demo](https://raw.githubusercontent.com/sukanta-m/communikitty-m/master/app-interaction-demo-android.gif)
+![React Navigation v5 Mix App Android Demo](https://github.com/sukanta-m/communikitty-m/blob/master/app-interaction-demo-android.gif)
 ### Android Demo
