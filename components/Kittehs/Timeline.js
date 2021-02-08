@@ -8,12 +8,14 @@ import {
   RefreshControl
 } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist'
+import Icon from "react-native-vector-icons/Ionicons";
 import { useQuery } from "@apollo/client";
 import { GET_ANIMAL_STORIES } from "../../graphql/query/story";
 
 import Loaded from "../../components/Loader";
 import { getIcon } from "../../helper/utils";
 import { startCase } from 'lodash';
+import NewStory from "./Story/New";
 
 const {width} = Dimensions.get("screen");
 
@@ -28,6 +30,7 @@ const event_icon = (s) => {
 
 const TimelineView = ({animal}) => {
   const [selected, setSelected] = useState();
+  const [showAddNewModal, setShowAddNewModal] = useState(false);
 
   const {loading, data, refetch, error} = useQuery(GET_ANIMAL_STORIES, { variables: { animalSlug: animal.slug }, fetchPolicy: "cache-and-network" });
 
@@ -64,9 +67,19 @@ const TimelineView = ({animal}) => {
       </View>
     )
   }
+  const showNewStory = () => setShowAddNewModal(true);
+  const closeNewStory = () => setShowAddNewModal(false);
 
   return (
     <View style={styles.container}>
+      {showAddNewModal && (
+        <NewStory
+          kittyName={animal.name}
+          animalSlug={animal.slug}
+          onClose={closeNewStory}
+        />
+      )}
+      <Icon.Button name="ios-add" size={25} backgroundColor="#ffffff" color="#000000" onPress={showNewStory}></Icon.Button>
       <Timeline 
         style={styles.list}
         data={records}

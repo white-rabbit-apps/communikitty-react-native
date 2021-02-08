@@ -24,7 +24,7 @@ const Info = ({animal}) => {
           </View>
         </View>
         {
-          animal.intro &&
+          !!animal.intro &&
           <View style={styles.listItem}>
             {renderHeader(require("../../assets/images/form_intro/form_intro.png"), "Intro")}
             <View style={styles.right}>

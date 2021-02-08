@@ -1,7 +1,11 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import AsyncStorage from "@react-native-community/async-storage";
 import { setContext } from "@apollo/client/link/context";
-const httpLink = new HttpLink({ uri: 'https://reshare.community/graphql' });
+import { createUploadLink } from "apollo-upload-client";
+
+const httpLink = createUploadLink({
+  uri: `https://reshare.community/graphql`
+});
 
 const getToken = async () => {
   const session = await AsyncStorage.getItem('@communikitty-graphql:session');

@@ -12,7 +12,7 @@ const windowHeight = Dimensions.get('window').height;
 const Feed = () => {
   const [loadMore, setLoadMore] = React.useState(false);
   const [page, setPage] = React.useState(1);
-  const { loading, error, data, fetchMore, refetch } = useQuery(GET_ACTIVITY_FEEDS, {
+  const { loading, error, data, fetchMore } = useQuery(GET_ACTIVITY_FEEDS, {
     variables: {
       scope: 'current_user',
       sortBy: "created_at",
@@ -21,10 +21,6 @@ const Feed = () => {
       pageSize: 10
     }
   });
-
-  React.useEffect(() => {
-    refetch();
-  }, []);
 
   const loadMoreData = () => {
     setLoadMore(true);

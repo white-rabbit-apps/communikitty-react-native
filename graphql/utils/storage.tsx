@@ -6,6 +6,6 @@ export default class Storage {
   }
 
   static setStorage(type, data) {
-    AsyncStorage.setItem(`@communikitty-graphql:${type}`, data);
+    return AsyncStorage.setItem(`@communikitty-graphql:${type}`, data);
   }
 }

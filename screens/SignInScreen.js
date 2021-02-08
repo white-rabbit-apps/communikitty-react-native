@@ -97,12 +97,13 @@ const SignInScreen = ({ navigation }) => {
     }
   }
 
-  const onCompleted = (data) => {
+  const onCompleted = async (data) => {
     const signInData = data.signIn || data.omniauthSignin;
-    auth.loginUser({data: { signIn: signInData }});
+    await auth.loginUser({data: { signIn: signInData }});
+    signInAction(signInData.user);
   };
 
-  const updateError = () => {
+  const updateError = (error) => {
     setIsLogin(false);
     Alert.alert("Error", "Invalid Email or Password", [
       { text: 'Okay' }
@@ -114,7 +115,6 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const updateIdToken = (cache, {data: {signIn, omniauthSignin}}) => {
-    signInAction((signIn || omniauthSignin).user);
     cache.writeQuery({
       query: GET_CURRENT_USER,
       data: { currentUser: (signIn || omniauthSignin).user },

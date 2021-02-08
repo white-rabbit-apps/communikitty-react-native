@@ -5,11 +5,11 @@ export default class Auth {
     return Storage.eraseStorage('session');
   }
 
-  loginUser(params) {
-    Storage.setStorage('session', JSON.stringify(params.data.signIn.credential))
+  async loginUser(params) {
+    return Storage.setStorage('session', JSON.stringify(params.data.signIn.credential))
   }
 
   signUpUser(params) {
-    Storage.setStorage('session', JSON.stringify(params.data.register.credential))
+    return Storage.setStorage('session', JSON.stringify(params.data.register.credential))
   }
 }
